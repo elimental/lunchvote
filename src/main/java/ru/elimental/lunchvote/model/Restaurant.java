@@ -1,6 +1,7 @@
 package ru.elimental.lunchvote.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @Table(name = "restaurants")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Restaurant extends BaseEntity {
 
     @Column(name = "name")

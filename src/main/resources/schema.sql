@@ -3,8 +3,9 @@ drop table if exists dishes;
 drop table if exists restaurants;
 drop table if exists users;
 drop table if exists roles;
+drop sequence if exists hibernate_sequence;
 
-create sequence hibernate_sequence start with 1 increment by 1;
+create sequence hibernate_sequence start with 10000 increment by 1;
 
 create table restaurants
 (
