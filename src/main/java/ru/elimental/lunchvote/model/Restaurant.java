@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "restaurants")
 @Getter
 @Setter
-@NoArgsConstructor
 public class Restaurant extends BaseEntity {
 
     @Column(name = "name")

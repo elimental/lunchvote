@@ -34,8 +34,6 @@ alter table dishes
 create table users
 (
     id         bigint not null,
-    first_name varchar(255),
-    last_name  varchar(255),
     login      varchar(255),
     password   varchar(255),
     primary key (id)

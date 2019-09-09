@@ -14,6 +14,6 @@ public class TestUtil {
     }
 
     public static void assertMatch(Restaurant actual, Restaurant excepted) {
-        assertThat(actual).isEqualToComparingFieldByField(excepted);
+        assertThat(actual).isEqualToIgnoringGivenFields(excepted, "menu");
     }
 }

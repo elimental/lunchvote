@@ -14,7 +14,6 @@ import ru.elimental.lunchvote.model.Restaurant;
 import ru.elimental.lunchvote.util.JSONUtil;
 import ru.elimental.lunchvote.util.TestUtil;
 
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,7 +21,7 @@ import static ru.elimental.lunchvote.util.TestUtil.assertMatch;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc(secure = false)
+@AutoConfigureMockMvc
 @ActiveProfiles(value = "test")
 public class RestaurantConrtollerTest {
 

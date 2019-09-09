@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -14,20 +15,12 @@ import java.util.List;
 public class User extends BaseEntity {
 
     @Column(name = "login")
-    @NotBlank
+    @Size(min = 5, max = 20)
     private String login;
 
     @Column(name = "password")
-    @NotBlank
+    @Size(min = 5, max = 20)
     private String password;
-
-    @Column(name = "firstName")
-    @NotBlank
-    private String first_name;
-
-    @Column(name = "lastName")
-    @NotBlank
-    private String last_name;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
