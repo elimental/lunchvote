@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping(value = RestaurantConrtoller.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantConrtoller {
 
-    static final String REST_URL = "/v1/restaurants";
+    public static final String REST_URL = "/v1/restaurants";
 
     private final RestaurantService restaurantService;
 

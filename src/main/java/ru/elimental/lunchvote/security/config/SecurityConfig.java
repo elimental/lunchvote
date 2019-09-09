@@ -2,16 +2,23 @@ package ru.elimental.lunchvote.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.elimental.lunchvote.rest.RestaurantConrtoller;
+import ru.elimental.lunchvote.rest.UserController;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String[] ALLOWED_PATH = {
+            UserController.REST_URL + "register"
+    };
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
@@ -29,6 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        http
+                .httpBasic()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/v1/**").permitAll()
+             //   .antMatchers(HttpMethod.POST, RestaurantConrtoller.REST_URL).hasRole("ADMIN")
+             //   .antMatchers("/v1/**").hasRole("USER")
+                .and()
+                .formLogin().disable();
     }
 }
