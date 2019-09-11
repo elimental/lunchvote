@@ -3,9 +3,9 @@ package ru.elimental.lunchvote.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.elimental.lunchvote.security.Role;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -24,11 +24,14 @@ public class User extends BaseEntity {
     @Size(min = 5, max = 100)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "users_roles",
-            joinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "roles_id", referencedColumnName = "id")})
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_id"))
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Vote> votes;
 
     public User(String login, String password) {
         this.login = login;

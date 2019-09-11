@@ -8,6 +8,9 @@ import ru.elimental.lunchvote.exception.NotFoundException;
 import ru.elimental.lunchvote.exception.UserAlreadyExistsException;
 import ru.elimental.lunchvote.model.User;
 import ru.elimental.lunchvote.repository.UserRepository;
+import ru.elimental.lunchvote.security.Role;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -29,6 +32,7 @@ public class UserService {
             throw new UserAlreadyExistsException();
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(List.of(Role.USER));
         return userRepository.save(user);
     }
 

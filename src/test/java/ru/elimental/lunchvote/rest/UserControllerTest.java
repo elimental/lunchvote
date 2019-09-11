@@ -28,7 +28,7 @@ public class UserControllerTest {
 
     @Test
     public void register() throws Exception {
-        User newUser = new User("dddddddd", "gffffffff");
+        User newUser = new User("newlogin", "newpassword");
 
         mvc.perform(post(UserController.REST_URL + "/register")
                 .contentType(MediaType.APPLICATION_JSON)

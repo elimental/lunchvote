@@ -18,6 +18,9 @@ public class Restaurant extends BaseEntity {
     @NotEmpty
     private String name;
 
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Dish> menu;
+
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Vote> votes;
 }

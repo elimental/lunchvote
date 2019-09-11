@@ -23,7 +23,7 @@ public class Dish extends BaseEntity {
     @NotNull
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 }

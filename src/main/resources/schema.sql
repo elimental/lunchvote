@@ -7,6 +7,15 @@ drop sequence if exists hibernate_sequence;
 
 create sequence hibernate_sequence start with 10000 increment by 1;
 
+create table dishes
+(
+    id            bigint         not null,
+    name          varchar(255),
+    price         numeric(19, 2) not null,
+    restaurant_id bigint         not null,
+    primary key (id)
+);
+
 create table restaurants
 (
     id   bigint not null,
@@ -14,12 +23,26 @@ create table restaurants
     primary key (id)
 );
 
-create table dishes
+create table users
 (
-    id            bigint         not null,
-    name          varchar(255),
-    price         numeric(19, 2) not null,
-    restaurant_id bigint         not null,
+    id       bigint not null,
+    login    varchar(20),
+    password varchar(100),
+    primary key (id)
+);
+
+create table users_roles
+(
+    users_id bigint not null,
+    role     varchar(255)
+);
+
+create table votes
+(
+    id            bigint not null,
+    date          timestamp,
+    restaurant_id bigint not null,
+    user_id       bigint not null,
     primary key (id)
 );
 
@@ -31,39 +54,17 @@ alter table dishes
         foreign key (restaurant_id)
             references restaurants;
 
-create table users
-(
-    id         bigint not null,
-    login      varchar(255),
-    password   varchar(255),
-    primary key (id)
-);
+alter table votes
+    add constraint FK93nqd6kky7cyvbe4q1eup9gcx
+        foreign key (restaurant_id)
+            references restaurants;
 
-create table roles
-(
-    id   bigint not null,
-    name varchar(255),
-    primary key (id)
-);
-
-alter table roles
-    add constraint roles_unique_name_idx unique (name);
-
-create table users_roles
-(
-    users_id bigint not null,
-    roles_id bigint not null
-);
-
-alter table users_roles
-    add constraint FKa62j07k5mhgifpp955h37ponj
-        foreign key (roles_id)
-            references roles;
+alter table votes
+    add constraint FKli4uj3ic2vypf5pialchj925e
+        foreign key (user_id)
+            references users;
 
 alter table users_roles
     add constraint FKml90kef4w2jy7oxyqv742tsfc
         foreign key (users_id)
             references users;
-
-
-
