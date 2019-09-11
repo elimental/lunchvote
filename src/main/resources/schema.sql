@@ -1,8 +1,9 @@
-drop table if exists users_roles;
-drop table if exists dishes;
-drop table if exists restaurants;
-drop table if exists users;
-drop table if exists roles;
+drop table if exists users_roles cascade;
+drop table if exists dishes cascade;
+drop table if exists restaurants cascade;
+drop table if exists users cascade;
+drop table if exists roles cascade;
+drop table if exists votes cascade;
 drop sequence if exists hibernate_sequence;
 
 create sequence hibernate_sequence start with 10000 increment by 1;

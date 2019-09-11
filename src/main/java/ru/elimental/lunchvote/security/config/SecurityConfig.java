@@ -39,9 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers(ALLOWED_PATH).permitAll()
+                .antMatchers(HttpMethod.POST, RestaurantConrtoller.REST_URL).hasAuthority("ADMIN")
+                .antMatchers("/v1/**").hasAuthority("USER")
                 .anyRequest().authenticated()
-                .antMatchers(HttpMethod.POST, RestaurantConrtoller.REST_URL).hasRole("ADMIN")
-                .antMatchers("/v1/**").hasRole("USER")
                 .and()
                 .httpBasic()
                 .and()

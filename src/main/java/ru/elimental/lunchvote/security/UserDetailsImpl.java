@@ -16,6 +16,7 @@ public class UserDetailsImpl implements UserDetails {
     private List<Role> authorities;
     private String password;
     private String username;
+    private Long id;
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
@@ -26,6 +27,7 @@ public class UserDetailsImpl implements UserDetails {
         userDetails.setAuthorities(user.getRoles());
         userDetails.setUsername(user.getLogin());
         userDetails.setPassword(user.getPassword());
+        userDetails.setId(user.getId());
         return userDetails;
     }
 }
