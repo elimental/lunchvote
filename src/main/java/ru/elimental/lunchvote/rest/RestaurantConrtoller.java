@@ -49,7 +49,7 @@ public class RestaurantConrtoller {
 
     @PostMapping(value = "/{id}/menu", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addDishToMenu(@PathVariable Long id, @Valid @RequestBody DishInputModel[] menu) {
+    public void addMenu(@PathVariable Long id, @Valid @RequestBody DishInputModel[] menu) {
         restaurantService.addMenu(id, menu);
     }
 }
