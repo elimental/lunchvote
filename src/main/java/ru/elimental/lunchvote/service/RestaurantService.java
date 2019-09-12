@@ -30,7 +30,8 @@ public class RestaurantService {
     }
 
     public Restaurant getRestaurant(Long id) throws NotFoundException {
-        return restaurantRepository.findById(id).orElseThrow(NotFoundException::new);
+        return restaurantRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format(
+                "Restuarant with id=%s was not found", id)));
     }
 
     public void deleteRestaurant(Long id) {
