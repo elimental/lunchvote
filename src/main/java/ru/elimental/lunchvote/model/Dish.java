@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"},
@@ -14,6 +15,10 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class Dish extends BaseEntity {
+
+    @Column(name = "date")
+    @NotNull
+    private LocalDate date;
 
     @Column(name = "name")
     @NotBlank

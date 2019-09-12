@@ -11,6 +11,7 @@ create sequence hibernate_sequence start with 10000 increment by 1;
 create table dishes
 (
     id            bigint         not null,
+    date          date           not null,
     name          varchar(255),
     price         numeric(19, 2) not null,
     restaurant_id bigint         not null,
