@@ -3,11 +3,13 @@ package ru.elimental.lunchvote.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.elimental.lunchvote.dto.DishInputModel;
 import ru.elimental.lunchvote.exception.NotFoundException;
 import ru.elimental.lunchvote.model.Dish;
 import ru.elimental.lunchvote.model.Restaurant;
 import ru.elimental.lunchvote.repository.RestaurantRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -34,19 +36,20 @@ public class RestaurantService {
                 "Restuarant with id=%s was not found", id)));
     }
 
-    public void deleteRestaurant(Long id) {
-        restaurantRepository.delete(getRestaurant(id));
+    public void addMenu(Long id, DishInputModel[] menu) {
+        Restaurant restaurant = getRestaurant(id);
+        List<Dish> restaurantMenu = restaurant.getMenu();
+        for (DishInputModel dishInputModel : menu) {
+            restaurantMenu.add(makeDishFromInputModel(dishInputModel, restaurant));
+        }
     }
 
-    public void deleteMenu(Long id) {
-        getRestaurant(id).getMenu().clear();
-    }
-
-    public void addDishToMenu(Long id, Dish dish) {
-        getRestaurant(id).getMenu().add(dish);
-    }
-
-    public void addFullMenu(Long id, List<Dish> dishes) {
-        getRestaurant(id).getMenu().addAll(dishes);
+    private Dish makeDishFromInputModel(DishInputModel inputModel, Restaurant restaurant) {
+        Dish newDish = new Dish();
+        newDish.setDate(LocalDate.now());
+        newDish.setName(inputModel.getName());
+        newDish.setRestaurant(restaurant);
+        newDish.setPrice(inputModel.getPrice());
+        return newDish;
     }
 }

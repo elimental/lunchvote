@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.elimental.lunchvote.model.Dish;
+import ru.elimental.lunchvote.dto.DishInputModel;
 import ru.elimental.lunchvote.model.Restaurant;
 import ru.elimental.lunchvote.service.RestaurantService;
 
@@ -47,26 +47,9 @@ public class RestaurantConrtoller {
         return restaurantService.getRestaurant(id);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteRestaurant(@PathVariable Long id) {
-        restaurantService.deleteRestaurant(id);
-    }
-
-    @DeleteMapping("/{id}/menu")
-    public void deleteMenu(@PathVariable Long id) {
-        restaurantService.deleteMenu(id);
-    }
-
     @PostMapping(value = "/{id}/menu", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addDishToMenu(@PathVariable Long id, @Valid @RequestBody Dish dish) {
-        restaurantService.addDishToMenu(id, dish);
-    }
-
-    @PostMapping(value = "/{id}/fullmenu", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addFullMenu(@PathVariable Long id, @Valid @RequestBody List<Dish> dishes) {
-        restaurantService.addFullMenu(id, dishes);
+    public void addDishToMenu(@PathVariable Long id, @Valid @RequestBody DishInputModel[] menu) {
+        restaurantService.addMenu(id, menu);
     }
 }

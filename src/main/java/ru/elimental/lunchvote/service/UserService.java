@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.elimental.lunchvote.exception.NotFoundException;
-import ru.elimental.lunchvote.exception.UserAlreadyExistsException;
+import ru.elimental.lunchvote.exception.AlreadyExistsException;
 import ru.elimental.lunchvote.model.User;
 import ru.elimental.lunchvote.repository.UserRepository;
 import ru.elimental.lunchvote.security.Role;
@@ -29,7 +28,7 @@ public class UserService {
     public User createUser(User user) {
         User existingUser = userRepository.findByLogin(user.getLogin()).orElse(null);
         if (existingUser != null) {
-            throw new UserAlreadyExistsException(String.format("User with login=%s was not found", user.getLogin()));
+            throw new AlreadyExistsException(String.format("User with login=%s was not found", user.getLogin()));
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(List.of(Role.USER));

@@ -1,5 +1,6 @@
 package ru.elimental.lunchvote.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,14 +11,14 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"},
-        name = "dishes_unique_name_idx")})
+@Table(name = "dishes")
 @Getter
 @Setter
 public class Dish extends BaseEntity {
 
     @Column(name = "date")
     @NotNull
+    @JsonIgnore
     private LocalDate date;
 
     @Column(name = "name")
@@ -28,7 +29,8 @@ public class Dish extends BaseEntity {
     @NotNull
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonIgnore
     private Restaurant restaurant;
 }

@@ -3,7 +3,7 @@ package ru.elimental.lunchvote.exception;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class UserAlreadyExistsException extends RuntimeException {
+public class AlreadyExistsException extends RuntimeException {
 
     private String msg;
 }

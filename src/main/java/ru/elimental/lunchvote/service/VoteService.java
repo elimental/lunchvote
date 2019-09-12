@@ -16,9 +16,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,7 +39,7 @@ public class VoteService {
         if (currentDateTime.toLocalTime().isAfter(THRESHOLD_TIME)) {
             throw new DateTimeException(String.format("It's too late. You have to vote by %s", THRESHOLD_TIME));
         }
-        Restaurant restaurant = restaurantRepository.getOne(restaurantId);
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElse(null);
         if (restaurant == null) {
             throw new NotFoundException(String.format("Restaurant with id=%s was not found ", restaurantId));
         }
