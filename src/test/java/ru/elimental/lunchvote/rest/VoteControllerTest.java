@@ -2,24 +2,25 @@ package ru.elimental.lunchvote.rest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
-import ru.elimental.lunchvote.model.User;
-import ru.elimental.lunchvote.service.UserService;
+import ru.elimental.lunchvote.model.Restaurant;
 import ru.elimental.lunchvote.util.JSONUtil;
+import ru.elimental.lunchvote.util.TestUtil;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.elimental.lunchvote.util.TestData.ADMIN;
 import static ru.elimental.lunchvote.util.TestUtil.assertMatch;
+import static ru.elimental.lunchvote.util.TestUtil.userHttpBasic;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,25 +28,27 @@ import static ru.elimental.lunchvote.util.TestUtil.assertMatch;
 @ActiveProfiles(value = "test")
 @Sql(scripts = "classpath:data-test.sql")
 @Transactional
-public class UserControllerTest {
+public class VoteControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
-
-    @Autowired
-    private UserService userService;
+//    @Test
+//    public void createVote() {
+//        Restaurant newRestaurant = new Restaurant();
+//        newRestaurant.setName("New Super Restaurant");
+//
+//        ResultActions action = mockMvc.perform(post(RestaurantConrtoller.REST_URL)
+//                .with(userHttpBasic(ADMIN))
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(JSONUtil.writeValue(newRestaurant)))
+//                .andExpect(status().isCreated())
+//                .andDo(print());
+//
+//        Restaurant returned = JSONUtil.readFromJSON(TestUtil.getContent(action.andReturn()), Restaurant.class);
+//        newRestaurant.setId(returned.getId());
+//
+//        assertMatch(returned, newRestaurant);
+//    }
 
     @Test
-    public void register() throws Exception {
-        User newUser = new User("newlogin", "newpassword");
-
-        mvc.perform(post(UserController.REST_URL + "/register")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(JSONUtil.writeValue(newUser)))
-                .andExpect(status().isCreated())
-                .andDo(print());
-
-        User created = userService.getUserByLogin(newUser.getLogin());
-        assertMatch(created, newUser);
+    public void getVotes() {
     }
 }
