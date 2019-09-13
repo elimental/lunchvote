@@ -9,13 +9,16 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 import ru.elimental.lunchvote.model.User;
+import ru.elimental.lunchvote.service.UserService;
 import ru.elimental.lunchvote.util.JSONUtil;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.elimental.lunchvote.util.TestUtil.assertMatch;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,6 +29,9 @@ public class UserControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @Autowired
+    private UserService userService;
+
     @Test
     public void register() throws Exception {
         User newUser = new User("newlogin", "newpassword");
@@ -35,5 +41,8 @@ public class UserControllerTest {
                 .content(JSONUtil.writeValue(newUser)))
                 .andExpect(status().isCreated())
                 .andDo(print());
+
+        User created = userService.getUserByLogin(newUser.getLogin());
+        assertMatch(created, newUser);
     }
 }

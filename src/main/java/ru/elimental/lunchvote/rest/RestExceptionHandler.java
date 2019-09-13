@@ -48,9 +48,9 @@ public class RestExceptionHandler {
         return new ErrorInfo("Binding or validation error", details);
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorInfo handleError() {
-        return new ErrorInfo("Server error", null);
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public ErrorInfo handleError() {
+//        return new ErrorInfo("Server error", null);
+//    }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name = "restaurants")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Restaurant extends BaseEntity {
 
     @Column(name = "name")
@@ -25,4 +26,9 @@ public class Restaurant extends BaseEntity {
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Vote> votes;
+
+    public Restaurant(Long id, String name) {
+        super(id);
+        this.name = name;
+    }
 }

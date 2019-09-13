@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.elimental.lunchvote.dto.DishInputModel;
+import ru.elimental.lunchvote.exception.AlreadyExistsException;
 import ru.elimental.lunchvote.exception.NotFoundException;
 import ru.elimental.lunchvote.model.Dish;
 import ru.elimental.lunchvote.model.Restaurant;
@@ -36,20 +37,20 @@ public class RestaurantService {
                 "Restuarant with id=%s was not found", id)));
     }
 
-    public void addMenu(Long id, DishInputModel[] menu) {
+    public void addMenu(Long id, DishInputModel dishInputModel) {
         Restaurant restaurant = getRestaurant(id);
         List<Dish> restaurantMenu = restaurant.getMenu();
-        for (DishInputModel dishInputModel : menu) {
-            restaurantMenu.add(makeDishFromInputModel(dishInputModel, restaurant));
-        }
-    }
-
-    private Dish makeDishFromInputModel(DishInputModel inputModel, Restaurant restaurant) {
+        restaurantMenu.forEach(dish -> {
+            if (dish.getName().equals(dishInputModel.getName())) {
+                throw new AlreadyExistsException(String.format("Restaurant id=%s. Dish %s already exists in menu",
+                        id, dishInputModel.getName()));
+            }
+        });
         Dish newDish = new Dish();
         newDish.setDate(LocalDate.now());
-        newDish.setName(inputModel.getName());
+        newDish.setName(dishInputModel.getName());
         newDish.setRestaurant(restaurant);
-        newDish.setPrice(inputModel.getPrice());
-        return newDish;
+        newDish.setPrice(dishInputModel.getPrice());
+        restaurantMenu.add(newDish);
     }
 }

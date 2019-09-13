@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(ALLOWED_PATH).permitAll()
                 .antMatchers(HttpMethod.POST, RestaurantConrtoller.REST_URL).hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, RestaurantConrtoller.REST_URL + "/**/menu").hasAuthority("ADMIN")
                 .antMatchers("/v1/**").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()

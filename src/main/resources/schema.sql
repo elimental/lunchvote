@@ -49,9 +49,6 @@ create table votes
 );
 
 alter table dishes
-    add constraint dishes_unique_name_idx unique (name);
-
-alter table dishes
     add constraint FKpslsa9mci7gsfhwukb3mx7s6n
         foreign key (restaurant_id)
             references restaurants;

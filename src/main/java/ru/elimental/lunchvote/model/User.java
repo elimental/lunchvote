@@ -34,7 +34,13 @@ public class User extends BaseEntity {
     private List<Vote> votes;
 
     public User(String login, String password) {
+        this(null, login, password, null);
+    }
+
+    public User(Long id, String login, String password, List<Role> roles) {
+        super(id);
         this.login = login;
         this.password = password;
+        this.roles = roles;
     }
 }
