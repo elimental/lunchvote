@@ -3,7 +3,7 @@ package ru.elimental.lunchvote.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.elimental.lunchvote.dto.VotesOutputModel;
-import ru.elimental.lunchvote.exception.DateTimeException;
+import ru.elimental.lunchvote.exception.TimePeriondException;
 import ru.elimental.lunchvote.exception.NotFoundException;
 import ru.elimental.lunchvote.model.Restaurant;
 import ru.elimental.lunchvote.model.User;
@@ -37,7 +37,7 @@ public class VoteService {
     public void createVote(Long restaurantId, Long userId) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         if (currentDateTime.toLocalTime().isAfter(THRESHOLD_TIME)) {
-            throw new DateTimeException(String.format("It's too late. You have to vote by %s", THRESHOLD_TIME));
+            throw new TimePeriondException(String.format("It's too late. You have to vote by %s", THRESHOLD_TIME));
         }
         Restaurant restaurant = restaurantRepository.findById(restaurantId).orElse(null);
         if (restaurant == null) {

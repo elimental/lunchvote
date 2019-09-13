@@ -28,7 +28,7 @@ public class UserService {
     public User createUser(User user) {
         User existingUser = userRepository.findByLogin(user.getLogin()).orElse(null);
         if (existingUser != null) {
-            throw new AlreadyExistsException(String.format("User with login=%s was not found", user.getLogin()));
+            throw new AlreadyExistsException(String.format("User with login '%s' already exists", user.getLogin()));
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(List.of(Role.USER));
