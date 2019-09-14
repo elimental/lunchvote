@@ -12,8 +12,6 @@ import ru.elimental.lunchvote.exception.ErrorInfo;
 import ru.elimental.lunchvote.exception.NotFoundException;
 import ru.elimental.lunchvote.exception.TimePeriondException;
 
-import javax.servlet.http.HttpServletRequest;
-
 
 @RestControllerAdvice
 public class RestExceptionHandler {

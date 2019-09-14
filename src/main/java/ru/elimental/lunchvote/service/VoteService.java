@@ -3,8 +3,8 @@ package ru.elimental.lunchvote.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.elimental.lunchvote.dto.VotesOutputModel;
-import ru.elimental.lunchvote.exception.TimePeriondException;
 import ru.elimental.lunchvote.exception.NotFoundException;
+import ru.elimental.lunchvote.exception.TimePeriondException;
 import ru.elimental.lunchvote.model.Restaurant;
 import ru.elimental.lunchvote.model.User;
 import ru.elimental.lunchvote.model.Vote;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 public class VoteService {
 
-    private static final LocalTime THRESHOLD_TIME = LocalTime.of(23, 0);
+    public static final LocalTime THRESHOLD_TIME = LocalTime.of(11, 0);
 
     private final VoteRepository voteRepository;
     private final UserRepository userRepository;

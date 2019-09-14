@@ -2,25 +2,30 @@ package ru.elimental.lunchvote.rest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import ru.elimental.lunchvote.model.Restaurant;
-import ru.elimental.lunchvote.util.JSONUtil;
-import ru.elimental.lunchvote.util.TestUtil;
+import ru.elimental.lunchvote.dto.VotesOutputModel;
+import ru.elimental.lunchvote.service.VoteService;
 
-import static org.junit.Assert.*;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.elimental.lunchvote.util.TestData.ADMIN;
-import static ru.elimental.lunchvote.util.TestUtil.assertMatch;
-import static ru.elimental.lunchvote.util.TestUtil.userHttpBasic;
+import static ru.elimental.lunchvote.util.TestData.MCDONALDS;
+import static ru.elimental.lunchvote.util.TestData.USER;
+import static ru.elimental.lunchvote.util.TestUtil.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,25 +35,39 @@ import static ru.elimental.lunchvote.util.TestUtil.userHttpBasic;
 @Transactional
 public class VoteControllerTest {
 
-//    @Test
-//    public void createVote() {
-//        Restaurant newRestaurant = new Restaurant();
-//        newRestaurant.setName("New Super Restaurant");
-//
-//        ResultActions action = mockMvc.perform(post(RestaurantConrtoller.REST_URL)
-//                .with(userHttpBasic(ADMIN))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(JSONUtil.writeValue(newRestaurant)))
-//                .andExpect(status().isCreated())
-//                .andDo(print());
-//
-//        Restaurant returned = JSONUtil.readFromJSON(TestUtil.getContent(action.andReturn()), Restaurant.class);
-//        newRestaurant.setId(returned.getId());
-//
-//        assertMatch(returned, newRestaurant);
-//    }
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private VoteService voteService;
 
     @Test
-    public void getVotes() {
+    public void createVote() throws Exception {
+        LocalTime localTime = LocalTime.now();
+        if (localTime.isBefore(VoteService.THRESHOLD_TIME)) {
+            mockMvc.perform(post(VoteController.REST_URL + "/3")
+                    .with(userHttpBasic(USER)))
+                    .andExpect(status().isCreated())
+                    .andDo(print());
+        } else {
+            mockMvc.perform(post(VoteController.REST_URL + "/3")
+                    .with(userHttpBasic(USER)))
+                    .andExpect(status().isForbidden())
+                    .andDo(print());
+        }
+    }
+
+    @Test
+    public void getVotes() throws Exception {
+        voteService.createVote(3L, 1L);
+        voteService.createVote(3L, 2L);
+        List<VotesOutputModel> outputModels = new ArrayList<>();
+        outputModels.add(new VotesOutputModel(3L, MCDONALDS.getName(), 2));
+        mockMvc.perform(get(VoteController.REST_URL)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(result -> assertMatch2(readListFromJsonMvcResult(result, VotesOutputModel.class), outputModels));
     }
 }

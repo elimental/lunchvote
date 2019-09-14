@@ -1,11 +1,9 @@
 package ru.elimental.lunchvote.util;
 
-import aj.org.objectweb.asm.TypeReference;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class JSONUtil {

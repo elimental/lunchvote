@@ -6,8 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ru.elimental.lunchvote.model.User;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter

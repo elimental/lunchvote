@@ -15,7 +15,6 @@ import ru.elimental.lunchvote.model.User;
 import ru.elimental.lunchvote.service.UserService;
 import ru.elimental.lunchvote.util.JSONUtil;
 
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

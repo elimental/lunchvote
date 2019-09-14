@@ -3,6 +3,7 @@ package ru.elimental.lunchvote.util;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
+import ru.elimental.lunchvote.dto.VotesOutputModel;
 import ru.elimental.lunchvote.model.Restaurant;
 import ru.elimental.lunchvote.model.User;
 
@@ -16,6 +17,10 @@ public class TestUtil {
 
     public static String getContent(MvcResult result) throws UnsupportedEncodingException {
         return result.getResponse().getContentAsString();
+    }
+
+    public static void assertMatch2(List<VotesOutputModel> actual, List<VotesOutputModel> excepted) {
+        assertThat(actual).usingFieldByFieldElementComparator().isEqualTo(excepted);
     }
 
     public static void assertMatch(Restaurant actual, Restaurant excepted) {
