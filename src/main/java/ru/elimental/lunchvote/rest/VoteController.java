@@ -33,10 +33,7 @@ public class VoteController {
 
     @GetMapping
     public List<VotesOutputModel> getVotes() {
-        List<VotesOutputModel> votes = voteService.getVotes();
-        return votes.stream()
-                .sorted(Comparator.comparing(VotesOutputModel::getVotes))
-                .collect(Collectors.toList());
+        return voteService.getVotes();
     }
 
 }

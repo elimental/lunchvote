@@ -57,6 +57,8 @@ public class VoteControllerTest {
         }
     }
 
+
+    // need to adjust the clock according Voteservice.THRESHOLD_TIME to complete this test
     @Test
     public void getVotes() throws Exception {
         voteService.createVote(3L, 1L);
