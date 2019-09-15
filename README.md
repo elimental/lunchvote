@@ -10,3 +10,15 @@ Voting system fro deciding where to have lunch.
     - If it is after 11:00 then it is too late, vote can't be changed
 
 One admin user already exists in database. Login: 'admin' password: 'admin'. 
+
+This is Spring boot application. It uses embedded HSQL databese and Tomcat application server. 
+
+# API description
+
+/v1/users/register - new user registration
+{
+    "login":"user login",
+    "password":"user password"
+}
+
+
