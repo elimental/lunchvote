@@ -21,7 +21,7 @@ POST /v1/users/register - new user registration
     "password":"user password"
 }
 
-POST /v1/restaurants - add new restaurant
+POST /v1/restaurants - add new restaurant  
 {
     "name":"restaurant name"
 }
