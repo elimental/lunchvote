@@ -15,7 +15,7 @@ This is Spring boot application. It uses embedded HSQL databese and Tomcat appli
 
 # API description
 
-POST /v1/users/register - new user registration
+POST /v1/users/register - new user registration  
 {
     "login":"user login",
     "password":"user password"
