@@ -16,24 +16,24 @@ This is Spring boot application. It uses embedded HSQL databese and Tomcat appli
 # API description
 
 POST /v1/users/register - new user registration  
-{
-    "login":"user login",
-    "password":"user password"
+{  
+    "login":"user login",  
+    "password":"user password"  
 }
 
 POST /v1/restaurants - add new restaurant  
-{
-    "name":"restaurant name"
+{  
+    "name":"restaurant name"  
 }
 
 GET /v1/restaurants - get all restaurants
 
 GET /v1/restaurants/id - get restaurant with particular id
 
-POST /v1/restaurants/id/menu - add one dish to menu to restaurant with particualar id
-{
-	"name":"name of new dish",
-	"price":"price of new dish"
+POST /v1/restaurants/id/menu - add one dish to menu to restaurant with particualar id  
+{  
+	"name":"name of new dish",  
+	"price":"price of new dish"  
 }
 
 POST /v1/votes/id - add vote for restaurant with particular id
