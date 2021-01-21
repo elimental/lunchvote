@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <jackson-json.version>2.9.10.4</jackson-json.version>
+        <jackson-json.version>2.9.10.7</jackson-json.version>
         <postgres.version>42.2.6</postgres.version>
     </properties>
 
